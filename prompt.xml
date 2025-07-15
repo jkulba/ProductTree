@@ -1,12 +1,42 @@
 <prompt>
-  <task>Generate an email response</task>
+  <task>Generate AstroJs website to host markdown documentation</task>
   <context>
-    <sender>Jane Doe</sender>
-    <recipient>Support Team</recipient>
-    <subject>Account issue</subject>
+    <owner>Hallcrest Engineering</owner>
+    <subject>Product Support Documentation</subject>
   </context>
   <requirements>
-    <tone>Professional</tone>
-    <length>100-150 words</length>
+    <version>Use the latest versions of Astro Js</version>
+    <stylesheet>Use Tailwind CSS</stylesheet>
+    <hosting>Use NGINX as the webserver</hosting>
+    <packaging>Package as an OCI container using Podman</packaging>
+    <search>Include the necessary plugins to index the content and provide a search box</search>
+    <automation>Generate a GitHub Action to package the pod as an OCI container</automation>
+    <automation>Upload the OCI container to the GitHub Container Registry</automation>
+    <content>
+      <description></description>
+      <examples>
+        <example>
+          <foldername>Application One</foldername>
+          <document>Development</document>
+          <document>Automation</document>
+          <document>Support</document>
+        </example
+        <example>
+          <foldername>Application Two</foldername>
+          <document>Development</document>
+          <document>Automation</document>
+          <document>Support</document>
+        </example
+        <example>
+          <foldername>Application Three</foldername>
+          <document>Development</document>
+          <document>Automation</document>
+          <document>Support</document>
+        </example          
+      </examples>
   </requirements>
+  <references>
+    <astrojs>https://astro.build/</astrojs>
+    <tailwindcss>https://tailwindcss.com/</tailwindcss>
+  </references>
 </prompt>

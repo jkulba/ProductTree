@@ -1,0 +1,12 @@
+<prompt>
+  <task>Generate an email response</task>
+  <context>
+    <sender>Jane Doe</sender>
+    <recipient>Support Team</recipient>
+    <subject>Account issue</subject>
+  </context>
+  <requirements>
+    <tone>Professional</tone>
+    <length>100-150 words</length>
+  </requirements>
+</prompt>

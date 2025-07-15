@@ -1,0 +1,354 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all documentation entries
+const docs = await getCollection('docs');
+
+// Group docs by application
+const docsByApp = docs.reduce((acc, doc) => {
+  const [app] = doc.slug.split('/');
+  if (!acc[app]) {
+    acc[app] = [];
+  }
+  acc[app].push(doc);
+  return acc;
+}, {} as Record<string, typeof docs>);
+
+// Sort applications
+const sortedApps = Object.entries(docsByApp).sort(([a], [b]) => a.localeCompare(b));
+
+function formatAppName(appSlug: string): string {
+  return appSlug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+function getAppDescription(appSlug: string): string {
+  const descriptions: { [key: string]: string } = {
+    'application-one': 'Modern web application with React and Node.js backend',
+    'application-two': 'Distributed microservices platform with event-driven architecture',
+    'application-three': 'Mobile-first React Native app with serverless AWS backend'
+  };
+  return descriptions[appSlug] || 'Application documentation and guides';
+}
+
+const pageTitle = "Hallcrest Engineering - Product Documentation";
+const pageDescription = "Comprehensive documentation for Hallcrest Engineering's product support, covering development, automation, and support for all applications.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <div class="bg-primary-600">
+      <div class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Product Documentation
+          </h1>
+          <p class="mt-6 max-w-2xl mx-auto text-xl text-primary-100">
+            Comprehensive documentation for Hallcrest Engineering's product support, covering development, automation, and support procedures for all applications.
+          </p>
+          <div class="mt-10">
+            <a
+              href="#applications"
+              class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50 transition-colors"
+            >
+              Browse Documentation
+              <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-16 bg-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold text-gray-900">Everything You Need</h2>
+          <p class="mt-4 text-lg text-gray-600">
+            Standardized documentation across all applications and teams
+          </p>
+        </div>
+
+        <div class="mt-16">
+          <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Development Documentation -->
+            <div class="relative group">
+              <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary-400 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+              <div class="relative p-6 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6">
+                <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
+                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
+                  </svg>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-lg font-semibold text-gray-900">Development Guides</h3>
+                  <p class="text-gray-600">Comprehensive development documentation including setup, architecture, APIs, and best practices for each application.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Automation Documentation -->
+            <div class="relative group">
+              <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary-400 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+              <div class="relative p-6 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6">
+                <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
+                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-lg font-semibold text-gray-900">Automation & CI/CD</h3>
+                  <p class="text-gray-600">Complete automation guides covering CI/CD pipelines, deployment strategies, testing automation, and infrastructure as code.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Support Documentation -->
+            <div class="relative group">
+              <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary-400 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+              <div class="relative p-6 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6">
+                <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
+                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C17.759 8.071 18 9.007 18 10zm-9.252 5.668L7.223 14.143A3.997 3.997 0 005.04 13.165l-1.562 1.562A5.983 5.983 0 006.748 15.668zm2.504-5.324l-.001-.002A1.003 1.003 0 1111 10.002v.001zm4.071-4.071A5.983 5.983 0 0014.332 3.252L12.857 4.777A3.997 3.997 0 0011.835 4.96l1.488-1.487z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="text-lg font-semibold text-gray-900">Support & Troubleshooting</h3>
+                  <p class="text-gray-600">Detailed support guides including troubleshooting procedures, monitoring setup, incident response, and maintenance tasks.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Applications Section -->
+    <div id="applications" class="py-16 bg-gray-50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold text-gray-900">Applications</h2>
+          <p class="mt-4 text-lg text-gray-600">
+            Documentation organized by application for easy navigation
+          </p>
+        </div>
+
+        <div class="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {sortedApps.map(([appSlug, appDocs]) => {
+            const appName = formatAppName(appSlug);
+            const appDescription = getAppDescription(appSlug);
+            const categories = ['development', 'automation', 'support'];
+            
+            return (
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                  <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-xl font-semibold text-gray-900">{appName}</h3>
+                    <p class="text-gray-600">{appDescription}</p>
+                  </div>
+                </div>
+                
+                <div class="mt-6 space-y-3">
+                  {categories.map(category => {
+                    const doc = appDocs.find((d: any) => d.slug.includes(category));
+                    if (!doc) return null;
+                    
+                    const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+                    
+                    return (
+                      <a 
+                        href={`/${doc.slug}`}
+                        class="flex items-center p-3 rounded-lg border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-all group"
+                      >
+                        <div class="w-8 h-8 text-gray-400 group-hover:text-primary-600">
+                          {category === 'development' && (
+                            <svg class="w-full h-full" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                          )}
+                          {category === 'automation' && (
+                            <svg class="w-full h-full" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                            </svg>
+                          )}
+                          {category === 'support' && (
+                            <svg class="w-full h-full" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C17.759 8.071 18 9.007 18 10zm-9.252 5.668L7.223 14.143A3.997 3.997 0 005.04 13.165l-1.562 1.562A5.983 5.983 0 006.748 15.668zm2.504-5.324l-.001-.002A1.003 1.003 0 1111 10.002v.001zm4.071-4.071A5.983 5.983 0 0014.332 3.252L12.857 4.777A3.997 3.997 0 0011.835 4.96l1.488-1.487z" clip-rule="evenodd"></path>
+                            </svg>
+                          )}
+                        </div>
+                        <div class="ml-3">
+                          <div class="text-sm font-medium text-gray-900 group-hover:text-primary-700">
+                            {categoryName}
+                          </div>
+                          <div class="text-xs text-gray-500">
+                            {doc.data.description || `${categoryName} documentation for ${appName}`}
+                          </div>
+                        </div>
+                        <div class="ml-auto">
+                          <svg class="w-4 h-4 text-gray-400 group-hover:text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="py-16 bg-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold text-gray-900">Quick Links</h2>
+          <p class="mt-4 text-lg text-gray-600">
+            Frequently accessed resources and tools
+          </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <a href="https://github.com/jkulba/ProductTree" target="_blank" class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-500 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
+            <div>
+              <span class="rounded-lg inline-flex p-3 bg-gray-50 text-gray-700 group-hover:bg-primary-50 group-hover:text-primary-600">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-medium text-gray-900 group-hover:text-primary-700">
+                Source Code
+              </h3>
+              <p class="mt-2 text-sm text-gray-500">
+                Access the GitHub repository for this documentation site
+              </p>
+            </div>
+          </a>
+
+          <a href="/search" class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-500 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
+            <div>
+              <span class="rounded-lg inline-flex p-3 bg-gray-50 text-gray-700 group-hover:bg-primary-50 group-hover:text-primary-600">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-medium text-gray-900 group-hover:text-primary-700">
+                Search Docs
+              </h3>
+              <p class="mt-2 text-sm text-gray-500">
+                Find specific information across all documentation
+              </p>
+            </div>
+          </a>
+
+          <a href="mailto:support@hallcrest.engineering" class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-500 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
+            <div>
+              <span class="rounded-lg inline-flex p-3 bg-gray-50 text-gray-700 group-hover:bg-primary-50 group-hover:text-primary-600">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-medium text-gray-900 group-hover:text-primary-700">
+                Get Support
+              </h3>
+              <p class="mt-2 text-sm text-gray-500">
+                Contact our support team for assistance
+              </p>
+            </div>
+          </a>
+
+          <div class="group relative bg-white p-6 rounded-lg border border-gray-200">
+            <div>
+              <span class="rounded-lg inline-flex p-3 bg-gray-50 text-gray-700">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-medium text-gray-900">
+                Latest Updates
+              </h3>
+              <p class="mt-2 text-sm text-gray-500">
+                Documentation last updated: {new Date().toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Add some interactivity for better UX
+  document.addEventListener('DOMContentLoaded', () => {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // Add loading states for external links
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+      link.addEventListener('click', function(this: HTMLAnchorElement) {
+        this.style.opacity = '0.7';
+        setTimeout(() => {
+          this.style.opacity = '1';
+        }, 200);
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Custom animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .group:hover .animate-fadeInUp {
+    animation: fadeInUp 0.3s ease-out;
+  }
+
+  /* Enhanced focus states for better accessibility */
+  .focus-within\:ring-2:focus-within {
+    box-shadow: 0 0 0 2px transparent, 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+</style>
+

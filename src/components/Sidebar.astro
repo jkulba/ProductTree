@@ -1,0 +1,137 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all documentation entries
+const docs = await getCollection('docs');
+
+// Group docs by application
+const docsByApp = docs.reduce((acc, doc) => {
+  const [app] = doc.slug.split('/');
+  if (!acc[app]) {
+    acc[app] = [];
+  }
+  acc[app].push(doc);
+  return acc;
+}, {} as Record<string, typeof docs>);
+
+// Sort applications and docs
+const sortedApps = Object.entries(docsByApp).sort(([a], [b]) => a.localeCompare(b));
+
+// Get current URL for active state
+const currentPath = Astro.url.pathname;
+
+function formatAppName(appSlug: string): string {
+  return appSlug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+function formatDocName(docSlug: string): string {
+  const [, docName] = docSlug.split('/');
+  return docName
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+---
+
+<nav class="p-6">
+  <div class="space-y-6">
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider">Quick Links</h3>
+      <ul class="mt-3 space-y-1">
+        <li>
+          <a href="/" class={`block px-3 py-2 text-sm rounded-md transition-colors ${currentPath === '/' ? 'bg-primary-50 text-primary-600 font-medium' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}>
+            Home
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Applications -->
+    <div>
+      <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider">Applications</h3>
+      <div class="mt-3 space-y-2">
+        {sortedApps.map(([appSlug, appDocs]) => {
+          const appName = formatAppName(appSlug);
+          const isAppActive = currentPath.includes(`/${appSlug}`);
+          
+          return (
+            <div class="space-y-1">
+              <!-- Application header -->
+              <button
+                type="button"
+                class={`w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors sidebar-toggle ${isAppActive ? 'bg-primary-50 text-primary-600' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                data-app={appSlug}
+                aria-expanded={isAppActive}
+              >
+                <span>{appName}</span>
+                <svg 
+                  class={`h-4 w-4 transform transition-transform sidebar-chevron ${isAppActive ? 'rotate-90' : ''}`}
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+              
+              <!-- Application documents -->
+              <ul class={`ml-4 space-y-1 sidebar-content ${isAppActive ? '' : 'hidden'}`} data-app={appSlug}>
+                {appDocs
+                  .sort((a, b) => a.slug.localeCompare(b.slug))
+                  .map((doc) => {
+                    const docName = formatDocName(doc.slug);
+                    const docPath = `/${doc.slug}`;
+                    const isDocActive = currentPath === docPath;
+                    
+                    return (
+                      <li>
+                        <a
+                          href={docPath}
+                          class={`block px-3 py-2 text-sm rounded-md transition-colors ${isDocActive ? 'bg-primary-100 text-primary-700 font-medium' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}
+                        >
+                          {docName}
+                        </a>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Handle sidebar collapsible sections
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButtons = document.querySelectorAll('.sidebar-toggle');
+    
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const app = button.getAttribute('data-app');
+        const content = document.querySelector(`[data-app="${app}"].sidebar-content`);
+        const chevron = button.querySelector('.sidebar-chevron');
+        
+        if (content && chevron) {
+          const isHidden = content.classList.contains('hidden');
+          
+          if (isHidden) {
+            content.classList.remove('hidden');
+            chevron.classList.add('rotate-90');
+            button.setAttribute('aria-expanded', 'true');
+          } else {
+            content.classList.add('hidden');
+            chevron.classList.remove('rotate-90');
+            button.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+    });
+  });
+</script>

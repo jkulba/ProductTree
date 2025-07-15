@@ -1,4 +1,3 @@
----
 import { getCollection } from 'astro:content';
 
 // Get all documentation entries for search index

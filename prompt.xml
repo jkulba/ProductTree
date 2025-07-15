@@ -13,26 +13,26 @@
     <automation>Generate a GitHub Action to package the pod as an OCI container</automation>
     <automation>Upload the OCI container to the GitHub Container Registry</automation>
     <content>
-      <description></description>
+      <description>The content added to the website will be used to support several applications.  The design of the site is intended to standardize how our team documents runbooks, support, and development documentation.</description>
       <examples>
         <example>
           <foldername>Application One</foldername>
           <document>Development</document>
           <document>Automation</document>
           <document>Support</document>
-        </example
+        </example>
         <example>
           <foldername>Application Two</foldername>
           <document>Development</document>
           <document>Automation</document>
           <document>Support</document>
-        </example
+        </example>
         <example>
           <foldername>Application Three</foldername>
           <document>Development</document>
           <document>Automation</document>
           <document>Support</document>
-        </example          
+        </example>          
       </examples>
   </requirements>
   <references>

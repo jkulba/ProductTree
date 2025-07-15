@@ -1,42 +1,43 @@
 <prompt>
-  <task>Generate AstroJs website to host markdown documentation</task>
-  <context>
-    <owner>Hallcrest Engineering</owner>
-    <subject>Product Support Documentation</subject>
-  </context>
-  <requirements>
-    <version>Use the latest versions of Astro Js</version>
-    <stylesheet>Use Tailwind CSS</stylesheet>
-    <hosting>Use NGINX as the webserver</hosting>
-    <packaging>Package as an OCI container using Podman</packaging>
-    <search>Include the necessary plugins to index the content and provide a search box</search>
-    <automation>Generate a GitHub Action to package the pod as an OCI container</automation>
-    <automation>Upload the OCI container to the GitHub Container Registry</automation>
-    <content>
-      <description>The content added to the website will be used to support several applications.  The design of the site is intended to standardize how our team documents runbooks, support, and development documentation.</description>
-      <examples>
-        <example>
-          <foldername>Application One</foldername>
-          <document>Development</document>
-          <document>Automation</document>
-          <document>Support</document>
-        </example>
-        <example>
-          <foldername>Application Two</foldername>
-          <document>Development</document>
-          <document>Automation</document>
-          <document>Support</document>
-        </example>
-        <example>
-          <foldername>Application Three</foldername>
-          <document>Development</document>
-          <document>Automation</document>
-          <document>Support</document>
-        </example>          
-      </examples>
-  </requirements>
-  <references>
-    <astrojs>https://astro.build/</astrojs>
-    <tailwindcss>https://tailwindcss.com/</tailwindcss>
-  </references>
+	<task>Generate AstroJs website to host markdown documentation</task>
+	<context>
+		<owner>Hallcrest Engineering</owner>
+		<subject>Product Support Documentation</subject>
+	</context>
+	<requirements>
+		<version>Use the latest versions of Astro Js</version>
+		<stylesheet>Use Tailwind CSS</stylesheet>
+		<hosting>Use NGINX as the webserver</hosting>
+		<packaging>Package as an OCI container using Podman</packaging>
+		<search>Include the necessary plugins to index the content and provide a search box</search>
+		<automation>Generate a GitHub Action to package the pod as an OCI container</automation>
+		<automation>Upload the OCI container to the GitHub Container Registry</automation>
+	</requirements>
+	<content>
+		<description>The content added to the website will be used to support several applications.  The design of the site is intended to standardize how our team documents runbooks, support, and development documentation.</description>
+		<examples>
+			<example>
+				<foldername>Application One</foldername>
+				<document>Development</document>
+				<document>Automation</document>
+				<document>Support</document>
+			</example>
+			<example>
+				<foldername>Application Two</foldername>
+				<document>Development</document>
+				<document>Automation</document>
+				<document>Support</document>
+			</example>
+			<example>
+				<foldername>Application Three</foldername>
+				<document>Development</document>
+				<document>Automation</document>
+				<document>Support</document>
+			</example>
+		</examples>
+	</content>
+	<references>
+		<astrojs>https://astro.build/</astrojs>
+		<tailwindcss>https://tailwindcss.com/</tailwindcss>
+	</references>
 </prompt>

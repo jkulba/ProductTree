@@ -4,7 +4,7 @@ description: "Support documentation and troubleshooting guide for Application On
 app: "Application One"
 category: "support"
 order: 3
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["support", "troubleshooting", "maintenance", "monitoring"]
 ---
 

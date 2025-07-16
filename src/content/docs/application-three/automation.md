@@ -4,7 +4,7 @@ description: "Mobile app automation, CI/CD pipelines, and cloud deployment for A
 app: "Application Three"
 category: "automation"
 order: 2
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["automation", "mobile", "ci-cd", "aws", "serverless"]
 ---
 

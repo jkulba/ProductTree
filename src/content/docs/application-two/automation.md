@@ -4,7 +4,7 @@ description: "Microservices automation, orchestration, and CI/CD for Application
 app: "Application Two"
 category: "automation"
 order: 2
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["automation", "microservices", "kubernetes", "ci-cd"]
 ---
 

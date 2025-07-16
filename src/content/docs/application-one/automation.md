@@ -4,7 +4,7 @@ description: "Automation setup and configuration for Application One CI/CD pipel
 app: "Application One"
 category: "automation"
 order: 2
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["automation", "ci-cd", "deployment", "testing"]
 ---
 

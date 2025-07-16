@@ -4,7 +4,7 @@ description: "Comprehensive development documentation for Application One"
 app: "Application One"
 category: "development"
 order: 1
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["development", "setup", "api"]
 ---
 

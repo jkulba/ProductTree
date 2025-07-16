@@ -4,7 +4,7 @@ description: "Mobile app support, troubleshooting, and maintenance for Applicati
 app: "Application Three"
 category: "support"
 order: 3
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["support", "mobile", "troubleshooting", "aws", "serverless"]
 ---
 

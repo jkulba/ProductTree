@@ -4,7 +4,7 @@ description: "Microservices support, monitoring, and troubleshooting for Applica
 app: "Application Two"
 category: "support"
 order: 3
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["support", "microservices", "monitoring", "troubleshooting"]
 ---
 

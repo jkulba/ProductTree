@@ -4,7 +4,7 @@ description: "Mobile-first development documentation for Application Three"
 app: "Application Three"
 category: "development"
 order: 1
-lastUpdated: 2025-01-15
+lastUpdated: 2025-07-15
 tags: ["development", "mobile", "react-native", "api"]
 ---
 

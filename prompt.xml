@@ -4,32 +4,35 @@
 		<owner>Hallcrest Engineering</owner>
 		<subject>Product Support Documentation</subject>
 	</context>
-	<requirements>
-		<version>Use the latest versions of Astro Js</version>
+	<requirements>		
+		<command>npm create astro@latest</command>
 		<stylesheet>Use Tailwind CSS</stylesheet>
 		<hosting>Use NGINX as the webserver</hosting>
 		<packaging>Package as an OCI container using Podman</packaging>
 		<search>Include the necessary plugins to index the content and provide a search box</search>
+		<mermaidjs>Include the Mermaid.js library to support diagram rendering</mermaidjs>
 		<automation>Generate a GitHub Action to package the pod as an OCI container</automation>
+		<automation>Generate the dependabot configuration file for node packages and github actions in the .github directory</automation>
 		<automation>Upload the OCI container to the GitHub Container Registry</automation>
+		<documentation>Generate a README.md file that describes how to get started with developing.</documentation>
 	</requirements>
 	<content>
 		<description>The content added to the website will be used to support several applications.  The design of the site is intended to standardize how our team documents runbooks, support, and development documentation.</description>
 		<examples>
 			<example>
-				<foldername>Application One</foldername>
+				<foldername>Atlanta</foldername>
 				<document>Development</document>
 				<document>Automation</document>
 				<document>Support</document>
 			</example>
 			<example>
-				<foldername>Application Two</foldername>
+				<foldername>Boston</foldername>
 				<document>Development</document>
 				<document>Automation</document>
 				<document>Support</document>
 			</example>
 			<example>
-				<foldername>Application Three</foldername>
+				<foldername>Chicago</foldername>
 				<document>Development</document>
 				<document>Automation</document>
 				<document>Support</document>

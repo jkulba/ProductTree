@@ -15,6 +15,13 @@ const searchIndex = docs.map(doc => {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 
+  // Create searchable keywords from content
+  const contentKeywords = content
+    .toLowerCase()
+    .match(/\b[a-zA-Z]{3,}\b/g) // Extract words 3+ characters
+    ?.slice(0, 50) // Limit to first 50 words
+    .join(' ') || '';
+
   return {
     title: doc.data.title,
     description: doc.data.description || excerpt,
@@ -24,7 +31,8 @@ const searchIndex = docs.map(doc => {
     tags: doc.data.tags || [],
     content: content,
     excerpt: excerpt,
-    lastUpdated: doc.data.lastUpdated?.toISOString() || null,
+    keywords: contentKeywords, // Add searchable keywords
+    lastUpdated: doc.data.lastUpdated || null
   };
 });
 
@@ -33,7 +41,7 @@ export async function GET() {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
-      'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
-    },
+      'Cache-Control': 'public, max-age=3600' // Cache for 1 hour
+    }
   });
 }

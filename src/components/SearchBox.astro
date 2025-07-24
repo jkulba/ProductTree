@@ -30,25 +30,44 @@
 </div>
 
 <script>
-  import Fuse from 'fuse.js';
-  
+  // Import Fuse.js using dynamic import to ensure it works in both dev and production
+  let Fuse: any;
   let searchIndex: any[] = [];
-  let fuse: Fuse<any>;
+  let fuse: any;
   
   // Initialize search
   async function initializeSearch() {
     try {
+      // Dynamic import of Fuse.js
+      const fuseModule = await import('fuse.js');
+      Fuse = fuseModule.default;
+      
+      // Fetch search index with error handling
       const response = await fetch('/search-index.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       searchIndex = await response.json();
+      console.log('Search index loaded:', searchIndex.length, 'documents');
       
       const options = {
-        keys: ['title', 'content', 'app'],
+        keys: [
+          { name: 'title', weight: 0.3 },
+          { name: 'tags', weight: 0.25 },
+          { name: 'description', weight: 0.2 },
+          { name: 'keywords', weight: 0.1 },
+          { name: 'app', weight: 0.1 },
+          { name: 'category', weight: 0.05 }
+        ],
         threshold: 0.3,
         includeScore: true,
-        includeMatches: true
+        includeMatches: true,
+        minMatchCharLength: 2
       };
       
       fuse = new Fuse(searchIndex, options);
+      console.log('Search initialized successfully');
     } catch (error) {
       console.error('Failed to load search index:', error);
     }
@@ -62,6 +81,7 @@
     }
     
     const results = fuse.search(query);
+    console.log('Search results for:', query, results);
     displayResults(results);
   }
   
@@ -101,6 +121,7 @@
   
   // Event listeners
   document.addEventListener('DOMContentLoaded', () => {
+    console.log('Initializing search...');
     initializeSearch();
     
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
@@ -125,7 +146,8 @@
       
       // Hide results when clicking outside
       document.addEventListener('click', (e) => {
-        if (!searchInput.contains(e.target as Node) && !document.getElementById('search-results')?.contains(e.target as Node)) {
+        const searchResults = document.getElementById('search-results');
+        if (!searchInput.contains(e.target as Node) && !searchResults?.contains(e.target as Node)) {
           hideResults();
         }
       });

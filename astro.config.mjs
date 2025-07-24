@@ -22,5 +22,10 @@ export default defineConfig({
   build: {
     format: 'directory'
   },
-  output: 'static'
+  output: 'static',
+  vite: {
+    optimizeDeps: {
+      include: ['fuse.js']
+    }
+  }
 });

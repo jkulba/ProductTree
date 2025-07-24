@@ -5,7 +5,7 @@ app: "Application One"
 category: "development"
 order: 1
 lastUpdated: 2025-07-15
-tags: ["development", "setup", "api"]
+tags: ["development", "setup", "api", "react", "nodejs", "architecture", "database", "authentication", "frontend", "backend", "environment", "configuration", "testing", "debugging"]
 ---
 
 # Application One - Development Guide

@@ -1,0 +1,113 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    # Limit the number of open pull requests for npm updates
+    open-pull-requests-limit: 5
+    # Add reviewers and assignees for all pull requests
+    reviewers:
+      - "jkulba"
+    assignees:
+      - "jkulba"
+    # Add labels to pull requests
+    labels:
+      - "dependencies"
+      - "javascript"
+      - "automated"
+    # Customize commit messages
+    commit-message:
+      prefix: "chore(deps):"
+      prefix-development: "chore(dev-deps):"
+      include: "scope"
+    # Group related updates together
+    groups:
+      # Group all AstroJS related packages
+      astro:
+        patterns:
+          - "@astrojs/*"
+          - "astro"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group Tailwind CSS related packages
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group TypeScript related packages
+      typescript:
+        patterns:
+          - "typescript"
+          - "@types/*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Security updates - allow immediate updates for security issues
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    # Ignore specific updates if needed (uncomment as needed)
+    # ignore:
+    #   - dependency-name: "astro"
+    #     versions: ["6.x"]  # Skip major version 6 for now
+    # Auto-merge configuration (requires GitHub branch protection rules)
+    # enable-beta-ecosystems: true
+    
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "jkulba"
+    assignees:
+      - "jkulba"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "ci-cd"
+    commit-message:
+      prefix: "chore(ci):"
+      include: "scope"
+    # Group GitHub Actions updates
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Enable version updates for Docker (if using Containerfile)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 2
+    reviewers:
+      - "jkulba"
+    assignees:
+      - "jkulba"
+    labels:
+      - "dependencies"
+      - "docker"
+      - "infrastructure"
+    commit-message:
+      prefix: "chore(docker):"
+      include: "scope"
